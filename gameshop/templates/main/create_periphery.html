@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1>Add Your Periphery Info</h1>
+    <div>
+        <form method="post" action="{% url 'create periphery' %}">
+            {% csrf_token %}
+            {{ form }}
+            <button>Create Periphery</button>
+        </form>
+    </div>
+{% endblock %}

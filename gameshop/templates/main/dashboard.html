@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1>Dashboard or smth idk</h1>
+    {% for el in items %}
+        <div>
+        <h3>{{ el.name }}</h3>
+        <p>Type: {{ el.get_class_name }}</p>
+        </div>
+
+    {% endfor %}
+{% endblock %}
