@@ -78,6 +78,3 @@ class Periphery(Item):
         max_length=max(len(x) for (x, _) in STATUSES),
         choices=STATUSES,
     )
-
-
-
