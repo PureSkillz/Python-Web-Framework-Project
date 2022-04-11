@@ -1,0 +1,56 @@
+.item-photo {
+    border-radius: 7px;
+    width: 150px; height: 175px;
+
+}
+
+.navbar a{
+    font-size: 30px;
+    font-weight: bold;
+    border-radius: 5px;
+    background-color: darkblue;
+    padding: 7px;
+    margin-right: 15px;
+}
+
+a:link, a:visited {
+    color: white;
+    text-decoration: none;
+}
+
+a:hover {
+    color: lightgray;
+}
+
+.navbar{
+    overflow: hidden;
+    background-color: lightblue;
+    position: fixed; /* Set the navbar to fixed position */
+    top: 0; /* Position the navbar at the top of the page */
+    width: 100%; /* Full width */
+    padding: 10px;
+}
+
+.main {
+  margin-top: 60px; /* Add a top margin to avoid content overlay */
+}
+
+.item-container {
+    border-radius: 7px;
+    display: inline-block;
+    background-color: aquamarine;
+    padding: 20px;
+    margin: 20px;
+}
+
+.item-container button {
+    background-color: red;
+    display: inline-table;
+    padding: 5px;
+    margin: 10px;
+    color: white;
+}
+
+body {
+    background-color: lightsalmon;
+}

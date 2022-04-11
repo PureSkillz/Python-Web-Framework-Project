@@ -29,9 +29,11 @@ class Item(models.Model):
         max_length=MAX_DESCRIPTION_LENGTH
     )
 
-    # image = models.ImageField(
-    #     validators=(MaxFileSizeInMbValidator(10),)
-    # )
+    image = models.ImageField(
+        null=True,
+        blank=True,
+        # validators=(MaxFileSizeInMbValidator(10),)
+    )
 
     def get_class_name(self):
         return self.__class__.__name__

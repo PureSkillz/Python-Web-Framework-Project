@@ -2,7 +2,7 @@
 {% block content %}
     <h1>Add Your Game Info</h1>
     <div>
-        <form method="post" action="{% url 'create game' %}">
+        <form method="post" action="{% url 'create game' %}" enctype='multipart/form-data'>
             {% csrf_token %}
             {{ form }}
             <button>Create Game</button>

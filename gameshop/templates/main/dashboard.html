@@ -1,10 +1,19 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block content %}
     <h1>Dashboard or smth idk</h1>
     {% for el in items %}
-        <div>
+        <div class="item-container">
         <h3>{{ el.name }}</h3>
+            {% if el.image %}
+                <img class="item-photo" src="{{ el.image.url }}" alt="Photo Missing">
+            {% else %}
+                <img class="item-photo" src="{% static 'missing_photo.png' %}" alt="Photo Missing">
+            {% endif %}
+        <p>Price: {{ el.price }}</p>
         <p>Type: {{ el.get_class_name }}</p>
+        <button class="detail-btn">detail</button>
+        <button class="fav-btn">fav</button>
         </div>
 
     {% endfor %}
