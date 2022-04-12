@@ -12,8 +12,20 @@
             {% endif %}
         <p>Price: {{ el.price }}</p>
         <p>Type: {{ el.get_class_name }}</p>
-        <button onclick="location.href = '{% url 'index' %}'" class="detail-btn">detail</button>
+
+        {% if el.get_class_name == "Game" %}
+            <button onclick="location.href = '{% url 'edit game' el.pk %}'" class="detail-btn">detail</button>
+            {% else %}
+            <button onclick="location.href = '{% url 'edit periphery' el.pk %}'" class="detail-btn">detail</button>
+        {% endif %}
+
         <button class="fav-btn">fav</button>
+
+        {% if el.get_class_name == "Game" %}
+            <button onclick="location.href = '{% url 'delete game' el.pk %}'" class="detail-btn">del</button>
+            {% else %}
+            <button onclick="location.href = '{% url 'delete periphery' el.pk %}'" class="detail-btn">del</button>
+        {% endif %}
         </div>
 
     {% endfor %}

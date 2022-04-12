@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1>Edit Your Periphery Info</h1>
+    <div class="form-div">
+        <form method="post" action="{% url 'edit periphery' object.pk %}" enctype='multipart/form-data'>
+            {% csrf_token %}
+            {{ form }}
+            <button>Edit Periphery</button>
+        </form>
+    </div>
+{% endblock %}

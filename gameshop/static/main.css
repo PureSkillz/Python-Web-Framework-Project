@@ -4,21 +4,22 @@
 
 }
 
-.navbar a{
+.nav-btn{
     font-size: 30px;
     font-weight: bold;
     border-radius: 5px;
     background-color: darkblue;
     padding: 7px;
     margin-right: 15px;
+    text-decoration: none;
 }
 
-a:link, a:visited {
+.nav-btn a:link, a:visited {
     color: white;
     text-decoration: none;
 }
 
-a:hover {
+.nav-btn:hover {
     color: lightgray;
 }
 
@@ -77,6 +78,16 @@ input[type=file] {
     box-sizing: border-box;
 }
 
+input[type=checkbox] {
+    width: 1%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
 textarea {
     padding: 12px 20px;
     margin: 8px 0;
@@ -113,4 +124,16 @@ textarea {
   border-radius: 5px;
   background-color: #f2f2f2;
   padding: 20px;
+}
+
+.form-div a{
+    color: black;
+    width: 30%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    text-decoration: none;
 }

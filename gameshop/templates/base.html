@@ -6,13 +6,14 @@
     <title>GameShop</title>
 
     <link rel="stylesheet" href="{% static 'main.css' %}">
+    <link rel="icon" href="{% static 'mushroom.jpg' %}">
 </head>
 <body>
 <nav class="navbar">
-    <a class="btn btn-primary" href="{% url 'index' %}">Home</a>
-    <a class="btn btn-primary" href="{% url 'dashboard' %}">idk</a>
-    <a class="btn btn-primary" href="{% url 'create game' %}">gam</a>
-    <a class="btn btn-primary" href="{% url 'create periphery' %}">periferiq</a>
+    <a class="nav-btn" href="{% url 'index' %}">Home</a>
+    <a class="nav-btn" href="{% url 'dashboard' %}">idk</a>
+    <a class="nav-btn" href="{% url 'create game' %}">gam</a>
+    <a class="nav-btn" href="{% url 'create periphery' %}">periferiq</a>
 </nav>
 <div class="main">
     {% block content %}

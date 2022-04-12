@@ -1,6 +1,7 @@
 from django import forms
+from django.urls import reverse_lazy
 
-from gameshop.common.helpers import BootstrapFormMixin
+from gameshop.common.helpers import BootstrapFormMixin, DisabledFieldsFormMixin
 from gameshop.main.models import Game, Periphery
 
 
@@ -23,7 +24,7 @@ class CreateGameForm(BootstrapFormMixin, forms.ModelForm):
 
     class Meta:
         model = Game
-        fields = [field.name for field in model._meta.fields if field.name != "user"]
+        exclude = ('user',)
         widgets = {
             'name': forms.TextInput(
                 attrs={
@@ -48,6 +49,34 @@ class CreateGameForm(BootstrapFormMixin, forms.ModelForm):
         }
 
 
+class EditGameForm(BootstrapFormMixin, forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self._init_bootstrap_form_controls()
+
+    class Meta:
+        model = Game
+        exclude = ('user',)
+
+
+class DeleteGameForm(BootstrapFormMixin, DisabledFieldsFormMixin, forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self._init_bootstrap_form_controls()
+        self._init_disabled_fields()
+
+    def save(self, commit=True):
+        self.instance.delete()
+        return self.instance
+
+    class Meta:
+        model = Game
+        exclude = ('user',)
+
+
+# --------------------------------------------------------------------------
+
+
 class CreatePeripheryForm(BootstrapFormMixin, forms.ModelForm):
     def __init__(self, user, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -67,7 +96,7 @@ class CreatePeripheryForm(BootstrapFormMixin, forms.ModelForm):
 
     class Meta:
         model = Periphery
-        fields = [field.name for field in model._meta.fields if field.name != "user"]
+        exclude = ('user',)
         widgets = {
             'name': forms.TextInput(
                 attrs={
@@ -90,3 +119,28 @@ class CreatePeripheryForm(BootstrapFormMixin, forms.ModelForm):
                 }
             ),
         }
+
+
+class EditPeripheryForm(BootstrapFormMixin, forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self._init_bootstrap_form_controls()
+
+    class Meta:
+        model = Periphery
+        exclude = ('user',)
+
+
+class DeletePeripheryForm(BootstrapFormMixin, DisabledFieldsFormMixin, forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self._init_bootstrap_form_controls()
+        self._init_disabled_fields()
+
+    def save(self, commit=True):
+        self.instance.delete()
+        return self.instance
+
+    class Meta:
+        model = Periphery
+        exclude = ('user',)

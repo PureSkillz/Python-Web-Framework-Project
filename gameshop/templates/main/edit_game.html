@@ -2,7 +2,7 @@
 {% block content %}
     <h1>Edit Your Game Info</h1>
     <div class="form-div">
-        <form method="post" action="{% url 'create game' %}" enctype='multipart/form-data'>
+        <form method="post" action="{% url 'edit game' object.pk %}" enctype='multipart/form-data'>
             {% csrf_token %}
             {{ form }}
             <button>Edit Game</button>

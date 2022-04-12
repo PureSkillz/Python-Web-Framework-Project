@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1>Delete Your Periphery</h1>
+    <div class="form-div">
+        <form method="post" action="{% url 'delete periphery' object.pk %}" enctype='multipart/form-data'>
+            {% csrf_token %}
+            {{ form }}
+            <button>Delete Periphery</button>
+        </form>
+    </div>
+{% endblock %}
