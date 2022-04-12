@@ -4,7 +4,7 @@
     <h1>Dashboard or smth idk</h1>
     {% for el in items %}
         <div class="item-container">
-        <h3>{{ el.name }}</h3>
+        <h3>{{ el.name|truncatechars:22 }}</h3>
             {% if el.image %}
                 <img class="item-photo" src="{{ el.image.url }}" alt="Photo Missing">
             {% else %}
@@ -14,9 +14,9 @@
         <p>Type: {{ el.get_class_name }}</p>
 
         {% if el.get_class_name == "Game" %}
-            <button onclick="location.href = '{% url 'edit game' el.pk %}'" class="detail-btn">detail</button>
+            <button onclick="location.href = '{% url 'edit game' el.pk %}'" class="detail-btn">edi</button>
             {% else %}
-            <button onclick="location.href = '{% url 'edit periphery' el.pk %}'" class="detail-btn">detail</button>
+            <button onclick="location.href = '{% url 'edit periphery' el.pk %}'" class="detail-btn">edi</button>
         {% endif %}
 
         <button class="fav-btn">fav</button>

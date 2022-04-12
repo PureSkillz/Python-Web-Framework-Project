@@ -9,16 +9,23 @@
     <link rel="icon" href="{% static 'mushroom.jpg' %}">
 </head>
 <body>
-<nav class="navbar">
+<header>
+    <nav class="navbar">
     <a class="nav-btn" href="{% url 'index' %}">Home</a>
     <a class="nav-btn" href="{% url 'dashboard' %}">idk</a>
     <a class="nav-btn" href="{% url 'create game' %}">gam</a>
     <a class="nav-btn" href="{% url 'create periphery' %}">periferiq</a>
 </nav>
+</header>
+<div class="form-main">
+    {% block form %}
+    {% endblock %}
+</div>
 <div class="main">
     {% block content %}
-{% endblock %}
+    {% endblock %}
 </div>
-
+<footer>
+</footer>
 </body>
 </html>

@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% block content %}
+{% block form %}
     <h1>Delete Your Periphery</h1>
     <div class="form-div">
         <form method="post" action="{% url 'delete periphery' object.pk %}" enctype='multipart/form-data'>

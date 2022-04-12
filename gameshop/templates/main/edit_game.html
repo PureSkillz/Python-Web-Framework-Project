@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% block content %}
+{% block form %}
     <h1>Edit Your Game Info</h1>
     <div class="form-div">
         <form method="post" action="{% url 'edit game' object.pk %}" enctype='multipart/form-data'>
