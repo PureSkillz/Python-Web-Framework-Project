@@ -1,11 +1,10 @@
 from django import forms
-from django.urls import reverse_lazy
 
 from gameshop.common.helpers import BootstrapFormMixin, DisabledFieldsFormMixin
 from gameshop.main.models import Game, Periphery
 
 
-class CreateGameForm(BootstrapFormMixin, forms.ModelForm):
+class CreateForm(BootstrapFormMixin, forms.ModelForm):
     def __init__(self, user, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.user = user
@@ -14,13 +13,37 @@ class CreateGameForm(BootstrapFormMixin, forms.ModelForm):
     def save(self, commit=True):
         # commit false does not persist to database
         # just returns the object to be created
-        game = super().save(commit=False)
+        obj = super().save(commit=False)
 
-        game.user = self.user
+        obj.user = self.user
         if commit:
-            game.save()
+            obj.save()
 
-        return game
+        return obj
+
+
+class EditForm(BootstrapFormMixin, forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self._init_bootstrap_form_controls()
+
+
+class DeleteForm(BootstrapFormMixin, DisabledFieldsFormMixin, forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self._init_bootstrap_form_controls()
+        self._init_disabled_fields()
+
+    def save(self, commit=True):
+        self.instance.delete()
+        return self.instance
+
+# Game ------------------------------------------------------------
+
+
+class CreateGameForm(CreateForm):
+    def __init__(self, user, *args, **kwargs):
+        super().__init__(user, *args, **kwargs)
 
     class Meta:
         model = Game
@@ -49,50 +72,30 @@ class CreateGameForm(BootstrapFormMixin, forms.ModelForm):
         }
 
 
-class EditGameForm(BootstrapFormMixin, forms.ModelForm):
+class EditGameForm(EditForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self._init_bootstrap_form_controls()
 
     class Meta:
         model = Game
         exclude = ('user',)
 
 
-class DeleteGameForm(BootstrapFormMixin, DisabledFieldsFormMixin, forms.ModelForm):
+class DeleteGameForm(DeleteForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self._init_bootstrap_form_controls()
-        self._init_disabled_fields()
-
-    def save(self, commit=True):
-        self.instance.delete()
-        return self.instance
 
     class Meta:
         model = Game
         exclude = ('user',)
 
 
-# --------------------------------------------------------------------------
+# Periphery --------------------------------------------------------------------------
 
 
-class CreatePeripheryForm(BootstrapFormMixin, forms.ModelForm):
+class CreatePeripheryForm(CreateForm):
     def __init__(self, user, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.user = user
-        self._init_bootstrap_form_controls()
-
-    def save(self, commit=True):
-        # commit false does not persist to database
-        # just returns the object to be created
-        periphery = super().save(commit=False)
-
-        periphery.user = self.user
-        if commit:
-            periphery.save()
-
-        return periphery
+        super().__init__(user, *args, **kwargs)
 
     class Meta:
         model = Periphery
@@ -121,25 +124,18 @@ class CreatePeripheryForm(BootstrapFormMixin, forms.ModelForm):
         }
 
 
-class EditPeripheryForm(BootstrapFormMixin, forms.ModelForm):
+class EditPeripheryForm(EditForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self._init_bootstrap_form_controls()
 
     class Meta:
         model = Periphery
         exclude = ('user',)
 
 
-class DeletePeripheryForm(BootstrapFormMixin, DisabledFieldsFormMixin, forms.ModelForm):
+class DeletePeripheryForm(DeleteForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self._init_bootstrap_form_controls()
-        self._init_disabled_fields()
-
-    def save(self, commit=True):
-        self.instance.delete()
-        return self.instance
 
     class Meta:
         model = Periphery
