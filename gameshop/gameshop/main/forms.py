@@ -30,6 +30,21 @@ class CreateGameForm(BootstrapFormMixin, forms.ModelForm):
                     'placeholder': 'Enter game name',
                 }
             ),
+            'price': forms.NumberInput(
+                attrs={
+                    'placeholder': 'Enter game price',
+                }
+            ),
+            'description': forms.Textarea(
+                attrs={
+                    'placeholder': 'Enter game description (optional)',
+                }
+            ),
+            'developer': forms.TextInput(
+                attrs={
+                    'placeholder': 'Enter game developer (optional)',
+                }
+            ),
         }
 
 
@@ -59,5 +74,19 @@ class CreatePeripheryForm(BootstrapFormMixin, forms.ModelForm):
                     'placeholder': 'Enter periphery name',
                 }
             ),
-            'date_of_release': forms.DateInput(format=["%d-%m-%Y"], )
+            'price': forms.NumberInput(
+                attrs={
+                    'placeholder': 'Enter periphery price',
+                }
+            ),
+            'description': forms.Textarea(
+                attrs={
+                    'placeholder': 'Enter periphery description (optional)',
+                }
+            ),
+            'warranty': forms.TextInput(
+                attrs={
+                    'placeholder': 'Enter periphery warranty in months (optional)',
+                }
+            ),
         }

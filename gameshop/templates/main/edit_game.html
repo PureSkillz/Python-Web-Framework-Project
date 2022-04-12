@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
 {% block content %}
-    <h1>Add Your Game Info</h1>
+    <h1>Edit Your Game Info</h1>
     <div class="form-div">
         <form method="post" action="{% url 'create game' %}" enctype='multipart/form-data'>
             {% csrf_token %}
             {{ form }}
-            <button>Create Game</button>
+            <button>Edit Game</button>
         </form>
     </div>
 {% endblock %}

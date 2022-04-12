@@ -12,7 +12,7 @@
             {% endif %}
         <p>Price: {{ el.price }}</p>
         <p>Type: {{ el.get_class_name }}</p>
-        <button class="detail-btn">detail</button>
+        <button onclick="location.href = '{% url 'index' %}'" class="detail-btn">detail</button>
         <button class="fav-btn">fav</button>
         </div>
 
