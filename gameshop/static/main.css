@@ -1,10 +1,11 @@
 .item-photo {
     border-radius: 7px;
+    max-width: 75%; max-height: 83%;
     width: 150px; height: 175px;
-
 }
 
 .nav-btn{
+    color: white;
     font-size: 30px;
     font-weight: bold;
     border-radius: 5px;
@@ -23,13 +24,29 @@
     color: lightgray;
 }
 
-.navbar{
+.navbar {
     overflow: hidden;
     background-color: lightblue;
-    position: fixed; /* Set the navbar to fixed position */
+    position: fixed;
     top: 0; /* Position the navbar at the top of the page */
-    width: 100%; /* Full width */
+    width: 100%;
     padding: 10px;
+}
+
+footer {
+    background-color: lightblue;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin-bottom: 0;
+    width: 100%;
+    height: 25px;
+}
+
+footer h3 {
+    margin-left: 8px;
+    margin-top: 0;
 }
 
 .main {
@@ -44,7 +61,7 @@
 }
 
 .item-container {
-        width: 20%;
+    width: 20%;
     height: 10%;
     border-radius: 7px;
     display: inline-block;
@@ -54,7 +71,7 @@
     box-shadow: 5px 5px #3d3d3d;
 }
 
-.item-container button{
+.item-container button, .item-container-details button{
     color: white;
     font-size: 18px;
     border-radius: 5px;
@@ -63,21 +80,29 @@
     margin: 5%;
 }
 
-.item-container button:active{
+.item-container button:active .item-container-details button:active{
     background: #cf0000;
 }
 
-/*.item-container button {*/
-/*    background-color: red;*/
-/*    display: inline-table;*/
-/*    padding: 5px;*/
-/*    margin: 10px;*/
-/*    color: white;*/
-/*}*/
+.item-container-details {
+    width: 70%;
+    height: auto;
+    border-radius: 7px;
+    display: inline-block;
+    background-color: #73afaf;
+    padding: 10px;
+    margin: 10px;
+    box-shadow: 5px 5px #3d3d3d;
+}
+
+.item-container-details textarea {
+    width: 70%;
+    height: auto;
+}
 
 body {
     background-color: #f0f0f0;
-    margin: 0;
+    margin: 0 0 30px;
 }
 
 

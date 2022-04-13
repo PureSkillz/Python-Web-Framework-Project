@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block form %}
+    <h1>Delete Your {{ object.get_class_name }}</h1>
+    <div class="form-div">
+        {% if object.get_class_name == "Game" %}
+        <form method="post" action="{% url 'delete game' object.pk %}" enctype='multipart/form-data'>
+            {% else %}
+        <form method="post" action="{% url 'delete periphery' object.pk %}" enctype='multipart/form-data'>
+        {% endif %}
+            {% csrf_token %}
+            {{ form }}
+            <button>Delete {{ object.get_class_name }}</button>
+        </form>
+    </div>
+{% endblock %}

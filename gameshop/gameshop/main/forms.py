@@ -4,7 +4,7 @@ from gameshop.common.helpers import BootstrapFormMixin, DisabledFieldsFormMixin
 from gameshop.main.models import Game, Periphery
 
 
-class CreateForm(BootstrapFormMixin, forms.ModelForm):
+class CreateFormMixin(BootstrapFormMixin, forms.ModelForm):
     def __init__(self, user, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.user = user
@@ -22,7 +22,7 @@ class CreateForm(BootstrapFormMixin, forms.ModelForm):
         return obj
 
 
-class EditForm(BootstrapFormMixin, forms.ModelForm):
+class EditFormMixin(BootstrapFormMixin, forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self._init_bootstrap_form_controls()
@@ -41,7 +41,7 @@ class DeleteForm(BootstrapFormMixin, DisabledFieldsFormMixin, forms.ModelForm):
 # Game ------------------------------------------------------------
 
 
-class CreateGameForm(CreateForm):
+class CreateGameForm(CreateFormMixin):
     def __init__(self, user, *args, **kwargs):
         super().__init__(user, *args, **kwargs)
 
@@ -72,13 +72,12 @@ class CreateGameForm(CreateForm):
         }
 
 
-class EditGameForm(EditForm):
+class EditGameForm(EditFormMixin):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-    class Meta:
-        model = Game
-        exclude = ('user',)
+    class Meta(CreateGameForm.Meta):
+        pass
 
 
 class DeleteGameForm(DeleteForm):
@@ -93,7 +92,7 @@ class DeleteGameForm(DeleteForm):
 # Periphery --------------------------------------------------------------------------
 
 
-class CreatePeripheryForm(CreateForm):
+class CreatePeripheryForm(CreateFormMixin):
     def __init__(self, user, *args, **kwargs):
         super().__init__(user, *args, **kwargs)
 
@@ -124,13 +123,12 @@ class CreatePeripheryForm(CreateForm):
         }
 
 
-class EditPeripheryForm(EditForm):
+class EditPeripheryForm(EditFormMixin):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-    class Meta:
-        model = Periphery
-        exclude = ('user',)
+    class Meta(CreatePeripheryForm.Meta):
+        pass
 
 
 class DeletePeripheryForm(DeleteForm):

@@ -5,5 +5,8 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('gameshop.main.urls'))
+    path('', include('gameshop.main.urls')),
+    path('accounts/', include('gameshop.accounts.urls')),
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+

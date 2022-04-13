@@ -4,28 +4,22 @@
     <h1>Dashboard or smth idk</h1>
     {% for el in items %}
         <div class="item-container">
-        <h3>{{ el.name|truncatechars:22 }}</h3>
-            {% if el.image %}
-                <img class="item-photo" src="{{ el.image.url }}" alt="Photo Missing">
-            {% else %}
-                <img class="item-photo" src="{% static 'missing_photo.png' %}" alt="Photo Missing">
+            <h3>{{ el.name|truncatechars:22 }}</h3>
+                {% if el.image %}
+                    <img class="item-photo" src="{{ el.image.url }}" alt="Photo Missing">
+                {% else %}
+                    <img class="item-photo" src="{% static 'missing_photo.png' %}" alt="Photo Missing">
+                {% endif %}
+            <p>Price: {{ el.price }}</p>
+            <p>Type: {{ el.get_class_name }}</p>
+
+            {% if el.get_class_name == "Game" %}
+                <button onclick="location.href = '{% url 'details game' el.pk %}'" class="details-btn">diteil</button>
+                {% else %}
+                <button onclick="location.href = '{% url 'details periphery' el.pk %}'" class="details-btn">diteil</button>
             {% endif %}
-        <p>Price: {{ el.price }}</p>
-        <p>Type: {{ el.get_class_name }}</p>
 
-        {% if el.get_class_name == "Game" %}
-            <button onclick="location.href = '{% url 'edit game' el.pk %}'" class="detail-btn">edi</button>
-            {% else %}
-            <button onclick="location.href = '{% url 'edit periphery' el.pk %}'" class="detail-btn">edi</button>
-        {% endif %}
-
-        <button class="fav-btn">fav</button>
-
-        {% if el.get_class_name == "Game" %}
-            <button onclick="location.href = '{% url 'delete game' el.pk %}'" class="detail-btn">del</button>
-            {% else %}
-            <button onclick="location.href = '{% url 'delete periphery' el.pk %}'" class="detail-btn">del</button>
-        {% endif %}
+            {#<button class="fav-btn">fav</button>#}
         </div>
 
     {% endfor %}

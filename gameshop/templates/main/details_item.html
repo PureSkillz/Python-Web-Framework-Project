@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <div class="item-container-details">
+        <h3>{{ object.name }}</h3>
+            {% if object.image %}
+                <img class="item-photo" src="{{ object.image.url }}" alt="Photo Missing">
+            {% else %}
+                <img class="item-photo" src="{% static 'missing_photo.png' %}" alt="Photo Missing">
+            {% endif %}
+        <p>Price: {{ object.price }}</p>
+        <p>Type: {{ object.get_class_name }}</p>
+        <label>
+            <textarea disabled="disabled">Description: {{ object.description }}</textarea>
+        </label>
+        {% if object.get_class_name == "Game" %}
+                <p>Suitable for: {{ object.platform }}</p>
+            {% if object.developer %}
+                <p>Developed by: {{ object.developer }}</p>
+                {% else %}
+                <p>Developed by: Not specified</p>
+            {% endif %}
+            {% else %}
+                <p>Condition: {{ object.condition }}</p>
+            {% if object.warranty %}
+                <p>Comes with {{ object.warranty }} months of warranty</p>
+                {% else %}
+                <p>Doesn't come with warranty</p>
+            {% endif %}
+        {% endif %}
+        <div>
+            {% if is_owner %}
+                {% if object.get_class_name == "Game" %}
+                    <button onclick="location.href = '{% url 'edit game' object.pk %}'" class="detail-btn">edi</button>
+                    <button onclick="location.href = '{% url 'delete game' object.pk %}'" class="detail-btn">del</button>
+                    {% else %}
+                    <button onclick="location.href = '{% url 'edit periphery' object.pk %}'" class="detail-btn">edi</button>
+                    <button onclick="location.href = '{% url 'delete periphery' object.pk %}'" class="detail-btn">del</button>
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

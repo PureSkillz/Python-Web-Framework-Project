@@ -25,7 +25,9 @@ SECRET_KEY = 'django-insecure-yu18zs-onx@*jhi-(trzo*l4g8!fklagt9l$5b5xoay4@2c*sf
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '127.0.0.1',
+]
 
 
 # Application definition
@@ -43,6 +45,8 @@ THIRD_PARTY_APPS = ()
 
 GAMESHOP_APPS = (
     'gameshop.main',
+    'gameshop.accounts',
+    # 'gameshop.common',
 )
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + GAMESHOP_APPS
@@ -152,3 +156,5 @@ MEDIA_URL = '/media/'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+AUTH_USER_MODEL = 'accounts.GameshopUser'

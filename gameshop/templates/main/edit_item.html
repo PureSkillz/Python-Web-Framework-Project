@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block form %}
+    <h1>Edit Your {{ object.get_class_name }} Info</h1>
+    <div class="form-div">
+        {% if object.get_class_name == "Game" %}
+            <form method="post" action="{% url 'edit game' object.pk %}" enctype='multipart/form-data'>
+            {% else %}
+            <form method="post" action="{% url 'edit periphery' object.pk %}" enctype='multipart/form-data'>
+        {% endif %}
+
+            {% csrf_token %}
+            {{ form }}
+            <button>Edit {{ object.get_class_name }}</button>
+        </form>
+    </div>
+{% endblock %}

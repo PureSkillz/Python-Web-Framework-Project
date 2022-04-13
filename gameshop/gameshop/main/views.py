@@ -1,7 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import generic as views
 from itertools import chain
+from random import shuffle
 
 from gameshop.main.forms import CreateGameForm, CreatePeripheryForm, EditGameForm, EditPeripheryForm, DeleteGameForm, \
     DeletePeripheryForm
@@ -19,68 +20,81 @@ class DashboardView(views.ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['items'] = list(chain(Game.objects.all(), Periphery.objects.all()))
+        shuffle(context['items'])
+        return context
+
+
+# Mixins ---------------------------------------
+
+
+class CreateViewMixin(views.CreateView):
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
+
+
+class EditViewMixin(views.UpdateView):
+    def get_success_url(self):
+        return reverse_lazy(f'details {self.object.get_class_name().lower()}', kwargs={'pk': self.object.id})
+
+
+class DetailsViewMixin(views.DetailView):
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context['is_owner'] = self.object.user == self.request.user
+
         return context
 
 
 # Game ---------------------------------------------
 
 
-class GameCreateView(views.CreateView):
+class GameCreateView(CreateViewMixin):
     template_name = 'main/create_game.html'
     form_class = CreateGameForm
     success_url = reverse_lazy('dashboard')
 
-    def get_form_kwargs(self):
-        kwargs = super().get_form_kwargs()
-        kwargs['user'] = self.request.user
-        return kwargs
 
-
-class GameEditView(views.UpdateView):
+class GameEditView(EditViewMixin):
     model = Game
-    template_name = "main/edit_game.html"
+    template_name = "main/edit_item.html"
     form_class = EditGameForm
 
-    def get_success_url(self):
-        return reverse_lazy('dashboard')
 
-
-class GameDeleteView(views.UpdateView):
+class GameDeleteView(EditViewMixin):
     model = Game
-    template_name = "main/delete_game.html"
+    template_name = "main/delete_item.html"
     form_class = DeleteGameForm
 
-    def get_success_url(self):
-        return reverse_lazy('dashboard')
+
+class GameDetailsView(DetailsViewMixin):
+    model = Game
+    template_name = "main/details_item.html"
 
 
 # Periphery ---------------------------------------------
 
 
-class PeripheryCreateView(views.CreateView):
+class PeripheryCreateView(CreateViewMixin):
     template_name = 'main/create_periphery.html'
     form_class = CreatePeripheryForm
     success_url = reverse_lazy('dashboard')
 
-    def get_form_kwargs(self):
-        kwargs = super().get_form_kwargs()
-        kwargs['user'] = self.request.user
-        return kwargs
 
-
-class PeripheryEditView(views.UpdateView):
+class PeripheryEditView(EditViewMixin):
     model = Periphery
-    template_name = "main/edit_periphery.html"
+    template_name = "main/edit_item.html"
     form_class = EditPeripheryForm
 
-    def get_success_url(self):
-        return reverse_lazy('dashboard')
 
-
-class PeripheryDeleteView(views.UpdateView):
+class PeripheryDeleteView(EditViewMixin):
     model = Periphery
-    template_name = "main/delete_periphery.html"
+    template_name = "main/delete_item.html"
     form_class = DeletePeripheryForm
 
-    def get_success_url(self):
-        return reverse_lazy('dashboard')
+
+class PeripheryDetailsView(DetailsViewMixin):
+    model = Periphery
+    template_name = "main/details_item.html"
