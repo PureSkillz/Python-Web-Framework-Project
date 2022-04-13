@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, NoReverseMatch
 from django.views import generic as views
 from itertools import chain
 from random import shuffle
@@ -47,6 +47,14 @@ class EditViewMixin(auth_mixins.LoginRequiredMixin, views.UpdateView):
         return reverse_lazy(f'details {self.object.get_class_name().lower()}', kwargs={'pk': self.object.id})
 
 
+class DeleteViewMixin(EditViewMixin):
+    def dispatch(self, request, *args, **kwargs):
+        try:
+            return super().dispatch(request, *args, **kwargs)
+        except NoReverseMatch:
+            return redirect('dashboard')
+
+
 class DetailsViewMixin(views.DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -71,7 +79,7 @@ class GameEditView(EditViewMixin):
     form_class = EditGameForm
 
 
-class GameDeleteView(EditViewMixin):
+class GameDeleteView(DeleteViewMixin):
     model = Game
     template_name = "main/delete_item.html"
     form_class = DeleteGameForm
@@ -97,7 +105,7 @@ class PeripheryEditView(EditViewMixin):
     form_class = EditPeripheryForm
 
 
-class PeripheryDeleteView(EditViewMixin):
+class PeripheryDeleteView(DeleteViewMixin):
     model = Periphery
     template_name = "main/delete_item.html"
     form_class = DeletePeripheryForm
