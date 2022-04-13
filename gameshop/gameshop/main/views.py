@@ -3,6 +3,7 @@ from django.urls import reverse_lazy
 from django.views import generic as views
 from itertools import chain
 from random import shuffle
+from django.contrib.auth import mixins as auth_mixins
 
 from gameshop.main.forms import CreateGameForm, CreatePeripheryForm, EditGameForm, EditPeripheryForm, DeleteGameForm, \
     DeletePeripheryForm
@@ -27,14 +28,21 @@ class DashboardView(views.ListView):
 # Mixins ---------------------------------------
 
 
-class CreateViewMixin(views.CreateView):
+class CreateViewMixin(auth_mixins.LoginRequiredMixin,  views.CreateView):
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
         kwargs['user'] = self.request.user
         return kwargs
 
 
-class EditViewMixin(views.UpdateView):
+class EditViewMixin(auth_mixins.LoginRequiredMixin, views.UpdateView):
+    def dispatch(self, request, *args, **kwargs):
+        response = super().dispatch(request, *args, **kwargs)
+        item_class = self.form_class.Meta.model
+        if self.request.user.id != item_class.objects.get(pk=kwargs['pk']).user_id:
+            return redirect('login user')
+        return response
+
     def get_success_url(self):
         return reverse_lazy(f'details {self.object.get_class_name().lower()}', kwargs={'pk': self.object.id})
 

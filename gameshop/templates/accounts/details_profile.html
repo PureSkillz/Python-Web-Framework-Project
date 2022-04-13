@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <div class="item-container-details">
+        <h3>{{ object.user.username }} ({{ object.first_name }} {{ object.last_name }})</h3>
+        {% if object.picture %}
+            <img class="item-photo" src="{{ object.picture.url }}" alt="Photo Missing">
+        {% else %}
+            <img class="item-photo" src="{% static 'missing_photo.png' %}" alt="Photo Missing">
+        {% endif %}
+
+        <p></p>
+        <label>
+            <textarea disabled="disabled">Description: {{ object.description }}</textarea>
+        </label>
+
+        {% if object.date_of_birth %}
+            <p>Born on: {{ object.date_of_birth }}</p>
+        {% else %}
+            <p>Born on: Not specified</p>
+        {% endif %}
+
+        <p>Email: {{ object.email }}</p>
+        <p>Gender: {{ object.gender }}</p>
+
+    </div>
+{% endblock %}

@@ -12,14 +12,15 @@
     <header>
         <nav class="navbar">
             <a class="nav-btn" href="{% url 'index' %}">Home</a>
-            <a class="nav-btn" href="{% url 'dashboard' %}">idk</a>
+            <a class="nav-btn" href="{% url 'dashboard' %}">Dashboard</a>
             {% if user.is_authenticated %}
-                <a class="nav-btn" href="{% url 'create game' %}">gam</a>
-                <a class="nav-btn" href="{% url 'create periphery' %}">periferiq</a>
-                <a class="nav-btn" href="{% url 'logout user' %}">logut</a>
+                <a class="nav-btn" href="{% url 'create game' %}">Add Game</a>
+                <a class="nav-btn" href="{% url 'create periphery' %}">Add Periphery</a>
+                <a class="nav-btn" href="{% url 'details user' request.user.id %}">Profile Details</a>
+                <a class="nav-btn user-btn" href="{% url 'logout user' %}">Logout</a>
             {% else %}
-                <a class="nav-btn" href="{% url 'login user' %}">logi</a>
-                <a class="nav-btn" href="{% url 'register user' %}">regstr</a>
+                <a class="nav-btn user-btn" href="{% url 'login user' %}">Login</a>
+                <a class="nav-btn user-btn" href="{% url 'register user' %}">Register</a>
             {% endif %}
         </nav>
     </header>
@@ -34,7 +35,7 @@
     </div>
 
     <footer>
-        <h3>ne mi pitai saita (zashto bi go napravil tf)©</h3>
+        <h3>GameShop© (not a rip-off)</h3>
     </footer>
 </body>
 </html>

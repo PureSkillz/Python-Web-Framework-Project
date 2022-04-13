@@ -8,7 +8,7 @@
             {% else %}
                 <img class="item-photo" src="{% static 'missing_photo.png' %}" alt="Photo Missing">
             {% endif %}
-        <p>Price: {{ object.price }}</p>
+        <p>Price: {{ object.price|floatformat:2 }} лв.</p>
         <p>Type: {{ object.get_class_name }}</p>
         <label>
             <textarea disabled="disabled">Description: {{ object.description }}</textarea>
@@ -31,11 +31,11 @@
         <div>
             {% if is_owner %}
                 {% if object.get_class_name == "Game" %}
-                    <button onclick="location.href = '{% url 'edit game' object.pk %}'" class="detail-btn">edi</button>
-                    <button onclick="location.href = '{% url 'delete game' object.pk %}'" class="detail-btn">del</button>
+                    <button onclick="location.href = '{% url 'edit game' object.pk %}'" class="detail-btn">Edit Game</button>
+                    <button onclick="location.href = '{% url 'delete game' object.pk %}'" class="detail-btn">Delete Game</button>
                     {% else %}
-                    <button onclick="location.href = '{% url 'edit periphery' object.pk %}'" class="detail-btn">edi</button>
-                    <button onclick="location.href = '{% url 'delete periphery' object.pk %}'" class="detail-btn">del</button>
+                    <button onclick="location.href = '{% url 'edit periphery' object.pk %}'" class="detail-btn">Edit Periphery</button>
+                    <button onclick="location.href = '{% url 'delete periphery' object.pk %}'" class="detail-btn">Delete Periphery</button>
                 {% endif %}
             {% endif %}
         </div>

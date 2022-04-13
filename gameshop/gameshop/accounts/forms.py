@@ -1,5 +1,5 @@
 from django import forms
-from django.contrib.auth import forms as auth_forms, get_user_model
+from django.contrib.auth import forms as auth_forms, get_user_model, login
 
 from gameshop.accounts.models import Profile
 from gameshop.common.helpers import BootstrapFormMixin
@@ -12,12 +12,15 @@ class CreateProfileForm(BootstrapFormMixin, auth_forms.UserCreationForm):
     last_name = forms.CharField(
         max_length=Profile.LAST_NAME_MAX_LENGTH,
     )
-    picture = forms.ImageField()
-    date_of_birth = forms.DateField()
+    picture = forms.ImageField(required=False)
+    date_of_birth = forms.DateField(required=False)
     description = forms.CharField(
         widget=forms.Textarea,
+        required=False
     )
-    email = forms.EmailField()
+    email = forms.EmailField(
+
+    )
     gender = forms.ChoiceField(
         choices=Profile.GENDERS,
     )

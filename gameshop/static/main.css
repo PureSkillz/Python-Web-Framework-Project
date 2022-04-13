@@ -1,5 +1,6 @@
 .item-photo {
     border-radius: 7px;
+    box-shadow: 2px 2px black;
     max-width: 75%; max-height: 83%;
     width: 150px; height: 175px;
 }
@@ -22,6 +23,10 @@
 
 .nav-btn:hover {
     color: lightgray;
+}
+
+.nav-btn.user-btn {
+    background-color: green;
 }
 
 .navbar {
@@ -65,7 +70,7 @@ footer h3 {
     height: 10%;
     border-radius: 7px;
     display: inline-block;
-    background-color: aquamarine;
+    background-color: rgba(107,255,247,0.6);
     padding: 10px;
     margin: 10px;
     box-shadow: 5px 5px #3d3d3d;
@@ -75,13 +80,13 @@ footer h3 {
     color: white;
     font-size: 18px;
     border-radius: 5px;
-    background-color: red;
+    background-color: rgba(0,0,255,0.8);
     padding: 7px;
     margin: 5%;
 }
 
 .item-container button:active .item-container-details button:active{
-    background: #cf0000;
+    background: rgba(0,0,190,0.8);
 }
 
 .item-container-details {
@@ -98,6 +103,11 @@ footer h3 {
 .item-container-details textarea {
     width: 70%;
     height: auto;
+}
+
+.item-container-details p {
+    font-weight: bold;
+    font-size: 17px;
 }
 
 body {
@@ -188,4 +198,13 @@ textarea {
 
 h1 {
     margin: 10px;
+}
+
+h1.index{
+    font-size: 45px;
+    font-weight: bold;
+}
+
+h3.index{
+    font-size: 25px;
 }

@@ -4,6 +4,7 @@ from django.contrib.auth import views as auth_views, logout
 from django.views import generic as views
 
 from gameshop.accounts.forms import CreateProfileForm
+from gameshop.accounts.models import Profile
 from gameshop.common.view_mixins import RedirectToDashboard
 from django.urls import reverse_lazy
 
@@ -27,3 +28,8 @@ class UserLoginView(auth_views.LoginView):
 def user_logout_view(request):
     logout(request)
     return redirect('index')
+
+
+class ProfileDetailsView(views.DetailView):
+    model = Profile
+    template_name = 'accounts/details_profile.html'

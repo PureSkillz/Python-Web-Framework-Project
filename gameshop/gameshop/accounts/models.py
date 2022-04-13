@@ -37,7 +37,7 @@ class Profile(models.Model):
     FEMALE = 'Female'
     DO_NOT_SHOW = 'Do not show'
 
-    GENDERS = [(x, x) for x in (MALE, FEMALE, DO_NOT_SHOW)]
+    GENDERS = [(x, x) for x in (DO_NOT_SHOW, MALE, FEMALE)]
 
     first_name = models.CharField(
         max_length=FIRST_NAME_MAX_LENGTH,
@@ -55,7 +55,7 @@ class Profile(models.Model):
         )
     )
 
-    image = models.ImageField(
+    picture = models.ImageField(
         null=True,
         blank=True,
     )
@@ -71,8 +71,6 @@ class Profile(models.Model):
     )
 
     email = models.EmailField(
-        null=True,
-        blank=True,
     )
 
     gender = models.CharField(

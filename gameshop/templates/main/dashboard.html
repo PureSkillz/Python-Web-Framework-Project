@@ -14,9 +14,9 @@
             <p>Type: {{ el.get_class_name }}</p>
 
             {% if el.get_class_name == "Game" %}
-                <button onclick="location.href = '{% url 'details game' el.pk %}'" class="details-btn">diteil</button>
+                <button onclick="location.href = '{% url 'details game' el.pk %}'" class="details-btn">Details</button>
                 {% else %}
-                <button onclick="location.href = '{% url 'details periphery' el.pk %}'" class="details-btn">diteil</button>
+                <button onclick="location.href = '{% url 'details periphery' el.pk %}'" class="details-btn">Details</button>
             {% endif %}
 
             {#<button class="fav-btn">fav</button>#}
