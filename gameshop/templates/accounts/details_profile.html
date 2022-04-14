@@ -23,5 +23,8 @@
         <p>Email: {{ object.email }}</p>
         <p>Gender: {{ object.gender }}</p>
 
+        <button onclick="location.href= '{% url 'edit user' object.pk %}'">Edit</button>
+        <button onclick="location.href= '{% url 'delete user' object.pk %}'">Delete</button>
+        <button onclick="location.href= '{% url 'change password' %}'">Change Password</button>
     </div>
 {% endblock %}

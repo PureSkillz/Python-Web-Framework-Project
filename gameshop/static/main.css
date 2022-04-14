@@ -172,10 +172,10 @@ textarea {
 }
 
 .form-div label {
-    width: 0;
     font-size: 18px;
-  padding: 8px 8px 8px 0;
-  display: block;
+    padding: 8px 8px 8px 0;
+    display: block;
+    width: fit-content;
 }
 
 .form-div {

@@ -18,7 +18,11 @@ class DisabledFieldsFormMixin:
     fields = {}
 
     def _init_disabled_fields(self):
-        del self.fields['image']
+        try:
+            del self.fields['image']
+        except KeyError:
+            del self.fields['picture']
+
         for name, field in self.fields.items():
             field.required = False
 
