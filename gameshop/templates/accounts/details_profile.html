@@ -22,9 +22,14 @@
 
         <p>Email: {{ object.email }}</p>
         <p>Gender: {{ object.gender }}</p>
-
-        <button onclick="location.href= '{% url 'edit user' object.pk %}'">Edit</button>
-        <button onclick="location.href= '{% url 'delete user' object.pk %}'">Delete</button>
-        <button onclick="location.href= '{% url 'change password' %}'">Change Password</button>
+        {% if is_owner %}
+            <button onclick="location.href= '{% url 'dashboard user uploads' object.pk %}'">My Uploads</button>
+            <br>
+            <button onclick="location.href= '{% url 'edit user' object.pk %}'">Edit Profile</button>
+            <button onclick="location.href= '{% url 'change password' %}'">Change Password</button>
+            <button class="del-btn" onclick="location.href= '{% url 'delete user' object.pk %}'">Delete Profile</button>
+        {% else %}
+            <button onclick="location.href= '{% url 'dashboard user uploads' object.pk %}'">{{ object.user.username }}'s Uploads</button>
+        {% endif %}
     </div>
 {% endblock %}

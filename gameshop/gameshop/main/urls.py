@@ -1,11 +1,12 @@
 from django.urls import path
 
 from gameshop.main.views import IndexView, DashboardView, GameCreateView, PeripheryCreateView, GameEditView, \
-    PeripheryEditView, GameDeleteView, PeripheryDeleteView, GameDetailsView, PeripheryDetailsView
+    PeripheryEditView, GameDeleteView, PeripheryDeleteView, GameDetailsView, PeripheryDetailsView, UserUploadsView
 
 urlpatterns = (
     path('', IndexView.as_view(), name='index'),
     path('dashboard/', DashboardView.as_view(), name='dashboard'),
+    path('dashboard/<int:pk>/', UserUploadsView.as_view(), name='dashboard user uploads'),
 
     path('game/create/', GameCreateView.as_view(), name='create game'),
     path('game/edit/<int:pk>/', GameEditView.as_view(), name='edit game'),

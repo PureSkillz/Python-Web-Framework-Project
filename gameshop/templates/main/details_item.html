@@ -28,15 +28,18 @@
                 <p>Doesn't come with warranty</p>
             {% endif %}
         {% endif %}
+
         <div>
             {% if is_owner %}
                 {% if object.get_class_name == "Game" %}
                     <button onclick="location.href = '{% url 'edit game' object.pk %}'" class="detail-btn">Edit Game</button>
-                    <button onclick="location.href = '{% url 'delete game' object.pk %}'" class="detail-btn">Delete Game</button>
+                    <button class="del-btn" onclick="location.href = '{% url 'delete game' object.pk %}'">Delete Game</button>
                     {% else %}
                     <button onclick="location.href = '{% url 'edit periphery' object.pk %}'" class="detail-btn">Edit Periphery</button>
-                    <button onclick="location.href = '{% url 'delete periphery' object.pk %}'" class="detail-btn">Delete Periphery</button>
+                    <button class="del-btn" onclick="location.href = '{% url 'delete periphery' object.pk %}'">Delete Periphery</button>
                 {% endif %}
+            {% else %}
+                <p>Posted by: <a href="{% url 'details user' object.user.id %}">{{ object.user.username }}</a></p>
             {% endif %}
         </div>
     </div>

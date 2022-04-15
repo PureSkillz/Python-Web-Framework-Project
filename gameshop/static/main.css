@@ -201,10 +201,20 @@ h1 {
 }
 
 h1.index{
-    font-size: 45px;
+    font-size: 60px;
     font-weight: bold;
 }
 
 h3.index{
-    font-size: 25px;
+    font-size: 30px;
+}
+
+p a, p a:visited{
+    color: white;
+    text-decoration: none;
+}
+
+.item-container-details .del-btn{
+    color: black;
+    background-color: red;
 }

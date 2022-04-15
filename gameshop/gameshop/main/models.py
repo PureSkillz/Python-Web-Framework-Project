@@ -35,6 +35,8 @@ class Item(models.Model):
         # validators=(MaxFileSizeInMbValidator(10),)
     )
 
+    last_modified = models.DateTimeField()
+
     def get_class_name(self):
         return self.__class__.__name__
 

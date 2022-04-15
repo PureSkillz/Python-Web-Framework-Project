@@ -2,8 +2,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse_lazy, NoReverseMatch
 from django.views import generic as views
 from itertools import chain
-from random import shuffle
-from django.contrib.auth import mixins as auth_mixins
+from django.contrib.auth import mixins as auth_mixins, get_user_model
 
 from gameshop.main.forms import CreateGameForm, CreatePeripheryForm, EditGameForm, EditPeripheryForm, DeleteGameForm, \
     DeletePeripheryForm
@@ -21,7 +20,7 @@ class DashboardView(views.ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['items'] = list(chain(Game.objects.all(), Periphery.objects.all()))
-        shuffle(context['items'])
+        context['items'] = sorted(context['items'], key=lambda x: x.last_modified, reverse=True)
         return context
 
 
@@ -40,7 +39,7 @@ class EditViewMixin(auth_mixins.LoginRequiredMixin, views.UpdateView):
         response = super().dispatch(request, *args, **kwargs)
         item_class = self.form_class.Meta.model
         if self.request.user.id != item_class.objects.get(pk=kwargs['pk']).user_id:
-            return redirect('login user')
+            return redirect('dashboard')
         return response
 
     def get_success_url(self):
@@ -114,3 +113,19 @@ class PeripheryDeleteView(DeleteViewMixin):
 class PeripheryDetailsView(DetailsViewMixin):
     model = Periphery
     template_name = "main/details_item.html"
+
+
+# Others -------------------------------------------------
+
+
+class UserUploadsView(views.ListView):
+    model = Game
+    template_name = 'main/dashboard.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user_id = self.kwargs['pk']
+        context['items'] = list(chain(Game.objects.filter(user_id=user_id), Periphery.objects.filter(user_id=user_id)))
+        context['items'] = sorted(context['items'], key=lambda x: x.last_modified, reverse=True)
+        context['username'] = get_user_model().objects.get(pk=user_id).username
+        return context

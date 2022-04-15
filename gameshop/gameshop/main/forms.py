@@ -1,4 +1,6 @@
 from django import forms
+from django.core.exceptions import ValidationError
+from django.utils import timezone
 
 from gameshop.common.helpers import BootstrapFormMixin, DisabledFieldsFormMixin
 from gameshop.main.models import Game, Periphery
@@ -10,12 +12,18 @@ class CreateFormMixin(BootstrapFormMixin, forms.ModelForm):
         self.user = user
         self._init_bootstrap_form_controls()
 
+    def clean_image(self):
+        image = self.cleaned_data.get('image', False)
+        if image:
+            if image.size > 8 * 1024 * 1024:
+                raise ValidationError("Image files can be up to 8MB")
+            return image
+
     def save(self, commit=True):
-        # commit false does not persist to database
-        # just returns the object to be created
         obj = super().save(commit=False)
 
         obj.user = self.user
+        obj.last_modified = timezone.now()
         if commit:
             obj.save()
 
@@ -26,6 +34,14 @@ class EditFormMixin(BootstrapFormMixin, forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self._init_bootstrap_form_controls()
+
+    def save(self, commit=True):
+        obj = super().save(commit=False)
+        obj.last_modified = timezone.now()
+        if commit:
+            obj.save()
+
+        return obj
 
 
 class DeleteForm(BootstrapFormMixin, DisabledFieldsFormMixin, forms.ModelForm):
@@ -47,7 +63,7 @@ class CreateGameForm(CreateFormMixin):
 
     class Meta:
         model = Game
-        exclude = ('user',)
+        exclude = ('user', 'last_modified',)
         widgets = {
             'name': forms.TextInput(
                 attrs={
@@ -86,7 +102,7 @@ class DeleteGameForm(DeleteForm):
 
     class Meta:
         model = Game
-        exclude = ('user',)
+        exclude = ('user', 'last_modified',)
 
 
 # Periphery --------------------------------------------------------------------------
@@ -98,7 +114,7 @@ class CreatePeripheryForm(CreateFormMixin):
 
     class Meta:
         model = Periphery
-        exclude = ('user',)
+        exclude = ('user', 'last_modified', )
         widgets = {
             'name': forms.TextInput(
                 attrs={
@@ -137,4 +153,4 @@ class DeletePeripheryForm(DeleteForm):
 
     class Meta:
         model = Periphery
-        exclude = ('user',)
+        exclude = ('user', 'last_modified',)

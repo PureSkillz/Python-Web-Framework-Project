@@ -5,7 +5,6 @@ from django.views import generic as views
 
 from gameshop.accounts.forms import CreateProfileForm, EditProfileForm, DeleteProfileForm
 from gameshop.accounts.models import Profile
-from gameshop.common.view_mixins import RedirectToDashboard
 from django.urls import reverse_lazy, NoReverseMatch
 
 
@@ -40,6 +39,13 @@ class ProfileDetailsView(views.DetailView):
     model = Profile
     template_name = 'accounts/details_profile.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context['is_owner'] = self.object.user == self.request.user
+
+        return context
+
 
 class ProfileEditView(views.UpdateView):
     model = Profile
@@ -56,7 +62,7 @@ class ProfileEditView(views.UpdateView):
         return reverse_lazy('details user', kwargs={'pk': self.request.user.id})
 
 
-class ProfileDeleteView(views.UpdateView):
+class ProfileDeleteView(ProfileEditView):
     model = Profile
     template_name = "accounts/delete_profile.html"
     form_class = DeleteProfileForm
